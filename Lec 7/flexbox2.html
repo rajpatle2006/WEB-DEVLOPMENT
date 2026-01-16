@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #parent{
+            height: 300px;
+            border: 2px solid black;
+            display: flex;
+             justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap:2px;
+            background-color: aliceblue;
+        }
+        .box{
+            height: 50px;
+            width: 50px;
+            background-color: blue;
+             position: relative;
+             top: 10px;
+             display: flex;
+            justify-content: center;
+            align-items: center;
+           
+        }
+        #name{
+            display: flex;
+            justify-content: center;
+        }
+        #body{
+            background-color: rgb(244, 180, 180);
+        }
+        #one{
+            /* flex-basis: 500px; */
+            /* flex-grow: 1; */
+            flex-shrink: 1;
+        }
+        #two{
+            /* flex-grow: 2; */
+            flex-shrink: 3;
+        }
+
+
+    </style>
+</head>
+<body id="body">
+    <h2 id="name">Flexbox Parent prooperties Demo</h2>
+    <div id="parent">
+        <div id="one" class="box" > 1 </div>
+        <div id="two" class="box"> 2 </div>
+        <div id="three" class="box"> 3 </div>
+        <div id="four" class="box"> 4 </div>
+        <div id="five" class="box"> 5 </div>
+        <div id="six" class="box"> 6 </div>
+        <div id="seven" class="box"> 7 </div> 
+        <div id="eigth" class="box"> 8 </div>
+        
+
+    </div>
+    
+</body>
+</html>
