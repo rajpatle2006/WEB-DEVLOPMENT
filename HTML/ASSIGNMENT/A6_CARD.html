@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title><style>
+        #bar{
+            width: auto;
+            height: auto;
+            border: solid ;
+            background-color: black;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+        }
+        .one{
+            color: white;
+        }
+        #card{
+            
+            height: 300px;
+            width:200px ;
+            border-radius: 15px;
+            border: solid rgb(175, 168, 168) ;
+            position: relative;
+            top: 100px;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+            transition: 3s;
+            margin: 0px auto;
+        }
+        #card:hover{
+            transform: scale(1.2);
+        }
+        #stauts{  
+            position: relative;
+            top: 8px;
+            left: 120px;
+            
+            color: white;
+            
+
+        }
+        #one{
+            border-radius: 20px;
+            color: white;
+            background-color: green;
+        }
+        #avatar{
+            height: 85px;
+            width: 85px;
+            background-color:black;
+            color: white;
+            border-radius: 50%; 
+            position: relative;
+            left: 60px;
+
+        }
+        #two{
+            display: flex;
+            justify-content: center;
+            position: relative;
+            top: 20px;
+            
+        }
+        #name{
+            position: relative;
+            color: black;
+            
+            top: 45px;
+        }
+        #about{
+            width: 100px;
+            color: rgb(126, 125, 125);
+            
+            position: relative;
+            top: 30px;
+        }
+        #three{
+            height: 35px;
+            width: 180px;
+
+            border: dotted rgb(195, 191, 191);
+            
+            
+            color: black;
+            position: relative;
+            top: 15px;
+            right: 50px;
+        }
+        #view{
+            border-radius: 20px;
+            color: white;
+            background-color: black;
+            position: relative;
+            top: 6px;
+        }
+        
+
+    </style>
+</head>
+<body>
+    <div id="bar">
+        <div class="one">
+            <a>mywebsite</a>
+        </div>
+        <div  class="one"><a>Home|About|Contact</a></div>
+
+
+    </div>
+    <div id="card">
+        <div id="stauts"><button id="one">ONLINE</button></div>
+        <div id="avatar" ><h1 id="two" >R</h1>
+        <h1 id="name">Rahul</h1>
+     <p id="about">Web Developer</p>
+     <p id="three">Bulid modern website using HTML&CSS</p>
+     <button id="view">View profile</button>
+    </div>
+    
+     
+
+
+    </div>
+</body>
+</html>
