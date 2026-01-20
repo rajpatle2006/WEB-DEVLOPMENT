@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            perspective: 900px;
+        }
+        #parent{
+            height: 600px;
+            width: 500px ;
+            margin: 40px auto;
+            position: relative;
+            /* perspective: 900px; */
+            transform-style: preserve-3d;
+            transition: 3s;
+            border: 8px black;
+            /* box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; */
+
+          
+        }
+        #parent:hover{
+            /* transform: rotateY(180deg); */
+              transform: rotateX(360deg);
+
+        }
+        #one{
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            z-index: 6;
+            backface-visibility: hidden;
+
+
+        }
+        img{
+              
+             height: 50%;
+            width: 100%;
+
+
+        }
+        #two{
+             height: 50%;
+            width: 100%;
+              border: 8px black;
+            z-index: 5;
+             position: absolute;
+            background-color: aqua;
+            /* transform: rotateY(180deg); */
+            transform: rotatex(180deg);
+        }
+    </style>
+</head>
+<body>
+    <div   id="parent">
+    <div id="one" > <img src="https://plus.unsplash.com/premium_photo-1697778137575-e739b2591416?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"></div>
+    <div  id="two" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga deleniti nobis blanditiis nesciunt assumenda ducimus repellendus doloribus incidunt nisi laboriosam nulla illum non quisquam perferendis, corrupti voluptates nostrum eius quaerat error. Tenetur architecto dolorem voluptate beatae in non aut odit, aliquid quia libero sit officiis porro ipsam mollitia? Reiciendis, minus!</div>
+    </div>
+</body>
+</html>

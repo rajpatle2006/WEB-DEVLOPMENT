@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            height: 400px;
+            width: 600px;
+            background-color: aquamarine;
+
+        }
+        div:hover{
+            animation-name: star;
+            animation-duration:3s;
+            animation-iteration-count: infinite;
+            /* animation-timing-function: linear; */
+            /* animation-delay: 2s; */
+
+
+        }
+        @keyframes star{
+
+            0%{
+                background-color :brown;
+                height:400px;
+                width:400px;
+            }
+             25%{
+                background-color :rgb(165, 42, 120);
+                height:400px;
+                width:400px;
+                border-radius:50%;
+            }
+             50%{
+                background-color :rgb(85, 24, 238);
+                height:400px;
+                width:400px;
+                 border-radius:60%;
+            }
+             100%{
+                background-color :rgb(46, 165, 42);
+                height:400px;
+                width:400px;
+                  border-radius:70%;
+
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Animation Start</h1>
+    <div>
+
+    </div>
+    
+</body>
+</html>
