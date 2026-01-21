@@ -1,27 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        #div{
+  <meta charset="UTF-8">
+  <title>Balloon Animation</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(to top, #87ceeb, #ffffff);
+      overflow: hidden;
+    }
+    .balloon {
+      position: absolute;
+      width: 80px;
+      height: 100px;
+      border-radius: 50% 50% 45% 45%;
+      background: radial-gradient(circle at 30% 30%, #ff6b6b, #c0392b);
+      animation: float 8s ease-in-out infinite;
+    }
+    .balloon::after {
+      content: "";
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 20px;
+      background: #333;
+      border-radius: 4px;
+    }
+    .string {
+      position: absolute;
+      bottom: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 80px;
+      background: #555;
+    }
+       #sun{
             height: 100px;
             width: 100px;
-          
-        }
-        .one{
-               height: 100px;
-            width: 100px;
-            border-radius: ;
-        }
-        #one{
+            border-radius: 50%;
+           background: linear-gradient(rgb(238, 90, 27),rgb(238, 166, 58));
+           position: relative;
+           left:700px;
+           bottom: 10px;
 
-        }
-    </style>
+    @keyframes float {
+      0%   { transform: translateY(0) rotate(0deg); }
+      50%  { transform: translateY(-60px) rotate(2deg); }
+       100% { transform: translateY(0) rotate(-2deg); }
+    }
+  </style>
 </head>
 <body>
-    <div id="box"></div>
-    
+  <div class="balloon" style="left: 20%; top: 60%;">
+    <div class="string"></div>
+  </div>
+  <div class="balloon" style="left: 50%; top: 70%; background: radial-gradient(circle at 30% 30%, #6bff95, #27ae60); animation-duration: 10s;">
+    <div class="string"></div>
+  </div>
+  <div class="balloon" style="left: 75%; top: 65%; background: radial-gradient(circle at 30% 30%, #6b9bff, #2980b9); animation-duration: 12s;">
+    <div class="string"></div>
+  </div>
 </body>
 </html>
