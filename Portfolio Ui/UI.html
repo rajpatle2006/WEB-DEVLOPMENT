@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .form-section, .preview-section { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #333; margin-bottom: 30px; font-size: 2.5em; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; color: #555; }
+        input, textarea, select { width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 10px; font-size: 16px; transition: border 0.3s; }
+        input:focus, textarea:focus { outline: none; border-color: #667eea; }
+        .photo-upload { text-align: center; }
+        #photo { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 5px solid #667eea; margin-bottom: 10px; }
+        button { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 12px 24px; border: none; border-radius: 10px; cursor: pointer; font-size: 16px; transition: transform 0.2s; }
+        button:hover { transform: translateY(-2px); }
+        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; background: #f8f9fa; margin: 5px 0; border-radius: 8px; }
+        .preview-resume { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 800px; margin: 0 auto; }
+        .preview-header { text-align: center; border-bottom: 3px solid #667eea; padding-bottom: 20px; margin-bottom: 30px; }
+        .preview-name { font-size: 2.5em; color: #333; margin-bottom: 10px; }
+        .preview-title { color: #667eea; font-size: 1.2em; }
+        .section { margin-bottom: 25px; }
+        .section-title { color: #667eea; font-size: 1.3em; margin-bottom: 15px; border-bottom: 2px solid #eee; padding-bottom: 5px; }
+        .skills-list, .projects-list { list-style: none; }
+        .skills-list li, .projects-list li { padding: 8px 0; border-bottom: 1px solid #eee; }
+        @media (max-width: 768px) { .container { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-section">
+            <h1>📝 Resume Builder</h1>
+            
+            <div class="form-group photo-upload">
+                <label>Profile Photo</label>
+                <input type="file" id="photoInput" accept="image/*">
+                <img id="photo" src="https://via.placeholder.com/150?text=Photo" alt="Photo">
+            </div>
+
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="name" placeholder="Your full name">
+            </div>
+
+            <div class="form-group">
+                <label>Job Title</label>
+                <input type="text" id="title" placeholder="e.g. Full Stack Developer">
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="email" placeholder="your@email.com">
+            </div>
+
+            <div class="form-group">
+                <label>Phone</label>
+                <input type="tel" id="phone" placeholder="+91-XXXXXXXXXX">
+            </div>
+
+            <div class="form-group">
+                <label>Skills</label>
+                <div id="skillsList"></div>
+                <input type="text" id="skillInput" placeholder="Add skill">
+                <button onclick="addSkill()">Add Skill</button>
+            </div>
+
+            <div class="form-group">
+                <label>Projects</label>
+                <div id="projectsList"></div>
+                <input type="text" id="projectInput" placeholder="Project name">
+                <textarea id="projectDesc" placeholder="Project description"></textarea>
+                <button onclick="addProject()">Add Project</button>
+            </div>
+
+            <button onclick="downloadPDF()" style="width: 100%; margin-top: 20px; font-size: 18px;">⬇️ Download PDF</button>
+        </div>
+
+        <div class="preview-section">
+            <h2>Live Preview</h2>
+            <div id="preview" class="preview-resume">
+                <!-- Preview content will be generated here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Real-time update
+        const inputs = ['name', 'title', 'email', 'phone'];
+        inputs.forEach(id => {
+            document.getElementById(id).addEventListener('input', updatePreview);
+        });
+        document.getElementById('photoInput').addEventListener('change', handlePhoto);
+
+        function handlePhoto(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('photo').src = e.target.result;
+                    updatePreview();
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function updatePreview() {
+            const name = document.getElementById('name').value || 'Your Name';
+            const title = document.getElementById('title').value || 'Job Title';
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const photoSrc = document.getElementById('photo').src;
+
+            document.getElementById('preview').innerHTML = `
+                <div class="preview-header">
+                    ${photoSrc !== 'https://via.placeholder.com/150?text=Photo' ? `<img src="${photoSrc}" style="width:120px;height:120px;border-radius:50%;object-fit:cover;">` : ''}
+                    <div class="preview-name">${name}</div>
+                    <div class="preview-title">${title}</div>
+                    ${email || phone ? `<div style="margin-top:15px;font-size:1.1em;">
+                        ${email ? `<span>${email}</span>` : ''}${phone ? `<span style="margin-left:20px;">${phone}</span>` : ''}
+                    </div>` : ''}
+                </div>
+                <div id="preview-skills" class="section"></div>
+                <div id="preview-projects" class="section"></div>
+            `;
+            updateSkillsPreview();
+            updateProjectsPreview();
+        }
+
+        let skills = [];
+        let projects = [];
+
+        function addSkill() {
+            const skill = document.getElementById('skillInput').value.trim();
+            if (skill) {
+                skills.push(skill);
+                document.getElementById('skillInput').value = '';
+                renderSkills();
+                updateSkillsPreview();
+            }
+        }
+
+        function renderSkills() {
+            const list = document.getElementById('skillsList');
+            list.innerHTML = skills.map((skill, index) => `
+                <div class="list-item">
+                    <span>${skill}</span>
+                    <button onclick="removeSkill(${index})" style="background:#ff4757;font-size:14px;padding:5px 10px;">Delete</button>
+                </div>
+            `).join('');
+        }
+
+        function removeSkill(index) {
+            skills.splice(index, 1);
+            renderSkills();
+            updateSkillsPreview();
+        }
+
+        function updateSkillsPreview() {
+            const preview = document.getElementById('preview-skills');
+            if (skills.length > 0) {
+                preview.innerHTML = `
+                    <div class="section-title">Skills</div>
+                    <ul class="skills-list">
+                        ${skills.map(skill => `<li>• ${skill}</li>`).join('')}
+                    </ul>
+                `;
+            } else {
+                preview.innerHTML = '';
+            }
+        }
+
+        function addProject() {
+            const name = document.getElementById('projectInput').value.trim();
+            const desc = document.getElementById('projectDesc').value.trim();
+            if (name && desc) {
+                projects.push({name, desc});
+                document.getElementById('projectInput').value = '';
+                document.getElementById('projectDesc').value = '';
+                renderProjects();
+                updateProjectsPreview();
+            }
+        }
+
+        function renderProjects() {
+            const list = document.getElementById('projectsList');
+            list.innerHTML = projects.map((project, index) => `
+                <div class="list-item">
+                    <div><strong>${project.name}</strong><br><small>${project.desc}</small></div>
+                    <button onclick="removeProject(${index})" style="background:#ff4757;font-size:14px;padding:5px 10px;">Delete</button>
+                </div>
+            `).join('');
+        }
+
+        function removeProject(index) {
+            projects.splice(index, 1);
+            renderProjects();
+            updateProjectsPreview();
+        }
+
+        function updateProjectsPreview() {
+            const preview = document.getElementById('preview-projects');
+            if (projects.length > 0) {
+                preview.innerHTML = `
+                    <div class="section-title">Projects</div>
+                    <ul class="projects-list">
+                        ${projects.map(p => `<li><strong>${p.name}</strong><br>${p.desc}</li>`).join('')}
+                    </ul>
+                `;
+            } else {
+                preview.innerHTML = '';
+            }
+        }
+
+        function downloadPDF() {
+            const element = document.getElementById('preview');
+            const opt = {
+                margin: 1,
+                filename: 'resume.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
+        }
+
+        // Initial preview
+        updatePreview();
+    </script>
+</body>
+</html>
